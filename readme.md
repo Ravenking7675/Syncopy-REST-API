@@ -41,5 +41,3 @@ This API will enable you to sync clipboard content among multiple devices.
 
 
 > checked is a boolen ; 0 ->> True & 1->> False
-> user_id is a sudo column for One-To-Many Relationship
-> "master" ->> is a relational variable in User Table 
