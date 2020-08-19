@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from models.user import UserModel
+from models.user import User
 from flask_jwt_extended import (
                                 create_access_token,
                                 create_refresh_token,
@@ -20,10 +20,10 @@ class UserRegister(Resource):
 
         data = _parse.parse_args()
 
-        if UserModel.get_user_by_name(data['username']):
+        if User.get_user_by_name(data['username']):
             return {"message": "User already exsists"}, 400
 
-        user = UserModel(**data)
+        user = User(**data)
         user.save_into_db()
 
         return {"message": "User added successfully"}, 201
@@ -34,7 +34,7 @@ class UserLogin(Resource):
         
         data = _parse.parse_args()
         
-        user = UserModel.get_user_by_name(data['username'])
+        user = User.get_user_by_name(data['username'])
         if user and user.password == data['password']:
             access_token = create_access_token(identity=user.id, fresh = True)
             refresh_token = create_refresh_token(user.id)
