@@ -20,6 +20,7 @@ _parse.add_argument('content', type=str, required=True, help="Content value can 
 _parse.add_argument('checked', type=bool, required=True, help="Is the clip CHECKED?")
 
 class Clipboard(Resource):
+    @jwt_required
     def post(self):
         
         print("Hey i am the sender")
@@ -35,6 +36,7 @@ class Clipboard(Resource):
         
         
 class ClipboardSenderData(Resource):
+    @jwt_required
     def get(self, user_id):
         
         user = User.get_user_by_id(user_id)
@@ -43,6 +45,8 @@ class ClipboardSenderData(Resource):
         
         clips = []
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_sender_id(user_id).all()]}, 201
+    
+    @jwt_required
     def delete(self, user_id):
         user = User.get_user_by_id(user_id)
         if user is None:
@@ -53,6 +57,7 @@ class ClipboardSenderData(Resource):
         
 class ClipboardSenderNData(Resource):
     
+    @jwt_required
     def get(self, user_id, n):
         user = User.get_user_by_id(user_id)
         if user is None:
@@ -64,6 +69,8 @@ class ClipboardSenderNData(Resource):
  
 
 class ClipboardRecieverData(Resource):
+    
+    @jwt_required
     def get(self, user_id):
         
         user = User.get_user_by_id(user_id)
@@ -74,6 +81,8 @@ class ClipboardRecieverData(Resource):
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_reciever_id(user_id).all()]}, 201
         
 class ClipboardRecieverNData(Resource):
+    
+    @jwt_required
     def get(self, user_id, n):
         
         user = User.get_user_by_id(user_id)
@@ -82,6 +91,7 @@ class ClipboardRecieverNData(Resource):
         clips = []
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_reciever_id(user_id).limit(n).all()]}, 201
     
+    @jwt_required
     def put(self, user_id, n):
         
         user = User.get_user_by_id(user_id)
