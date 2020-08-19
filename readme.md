@@ -1,11 +1,11 @@
+# Syncopy RestAPI
+
+This API will enable you to sync clipboard content among multiple devices.
+
 ## Heroku URL
 
 [heroku-syncopy](https://syncopy-api.herokuapp.com)
 
-
-# Syncopy RestAPI
-
-This API will enable you to sync clipboard content among multiple devices.
 
 ## End Points
 
