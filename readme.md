@@ -2,6 +2,11 @@
 
 This API will enable you to sync clipboard content among multiple devices.
 
+## Heroku URL
+
+[heroku-syncopy](https://syncopy-api.herokuapp.com)
+
+
 ## End Points
 
  [POST] **/auth** : To login the User 
@@ -14,9 +19,13 @@ This API will enable you to sync clipboard content among multiple devices.
 		
  [GET] **/sent/{user_id}/** : To get all the clip data from **{user_id}** (Sender Side)
 
+ [DEL] **/sent/{user_id}/** : To delete all the clip data from **{user_id}** (Sender Side)
+
  [GET] **/recieved/{user_id}/** : To get all the clip data from **{user_id}** (Reciever Side)
 
- [GET] **/sent/{user_id}/{n}** : To get **{n}** clip data from **{user_id}** 
+ [GET] **/sent/{user_id}/{n}** : To get **{n}** clip data from **{user_id}** (Sender Side)
+ 
+ [GET] **/recieved/{user_id}/{n}** : To get **{n}** clip data from **{user_id}** (Reciever Side) 
 
  [GET] **/sent/{user_id}/1** : To get the latest clip data from **{user_id}** (Sorted by [time])
 
@@ -41,3 +50,5 @@ This API will enable you to sync clipboard content among multiple devices.
 
 
 > checked is a boolen ; 0 ->> True & 1->> False
+
+
