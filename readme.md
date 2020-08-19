@@ -36,8 +36,8 @@ This API will enable you to sync clipboard content among multiple devices.
 
 |id|sender|sender_id|reciever|reciever_id|checked|time|content|user_id|
 |----------------|-------------|--------|----|-----|-----|-------|------|------|
-|1|user1|1|user2|2|0|878372873|"Copied Text 1"|1|
-|2|user2|2|user1|1|1|989127937|"Copied Text 2"|2|
+|1|user1|1|user2|2|0|878372873|"Copied Text"|1|
+|2|user2|2|user1|1|1|989127937|"Copied Text"|2|
 
 
 > checked is a boolen ; 0 ->> True & 1->> False
