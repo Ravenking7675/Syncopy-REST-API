@@ -4,7 +4,7 @@ This API will enable you to sync clipboard content among multiple devices.
 
 ## End Points
 
- [POST] **/login** : To login the User 
+ [POST] **/auth** : To login the User 
 	
  [POST] **/logout** : To logout the User
 	
