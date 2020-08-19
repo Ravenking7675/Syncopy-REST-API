@@ -6,9 +6,10 @@ from resources.user import UserRegister, UserLogin, Refresh,UserLogout
 from flask_jwt_extended import JWTManager
 from db import db
 from blacklist import BLACKLIST
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
@@ -26,10 +27,6 @@ api.add_resource(ClipboardSenderData, "/sent/<int:user_id>")
 api.add_resource(ClipboardRecieverData, "/recieved/<int:user_id>")
 api.add_resource(ClipboardRecieverNData, "/recieved/<int:user_id>/<int:n>")
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
-    
 @jwt.token_in_blacklist_loader
 def check_if_token_in_blacklist(decrypted_token):
     print("checking jti token")
