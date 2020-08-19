@@ -1,7 +1,13 @@
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
-from resources.clipboard import Clipboard, ClipboardSenderData, ClipboardRecieverData, ClipboardRecieverNData
+
+from resources.clipboard import (Clipboard, 
+                                 ClipboardSenderData, 
+                                 ClipboardRecieverData, 
+                                 ClipboardRecieverNData,
+                                 ClipboardSenderNData)
+
 from resources.user import UserRegister, UserLogin, Refresh,UserLogout
 from flask_jwt_extended import JWTManager
 from db import db
@@ -24,6 +30,7 @@ api.add_resource(Refresh, "/refresh")
 api.add_resource(UserLogout, "/logout")
 api.add_resource(Clipboard, "/clip") #<string:name>
 api.add_resource(ClipboardSenderData, "/sent/<int:user_id>")
+api.add_resource(ClipboardSenderNData, "/sent/<int:user_id>/<int:n>")
 api.add_resource(ClipboardRecieverData, "/recieved/<int:user_id>")
 api.add_resource(ClipboardRecieverNData, "/recieved/<int:user_id>/<int:n>")
 

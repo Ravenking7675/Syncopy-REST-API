@@ -37,6 +37,10 @@ class ClipboardModel(db.Model):
         db.session.flush()
         db.session.commit()
     
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
+    
     @classmethod
     def get_clips_by_sender_id(cls, user_id):
         return cls.query.order_by(desc(ClipboardModel.time)).filter_by(sender_id=user_id)

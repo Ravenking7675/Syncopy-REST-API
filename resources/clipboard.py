@@ -43,7 +43,25 @@ class ClipboardSenderData(Resource):
         
         clips = []
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_sender_id(user_id).all()]}, 201
+    def delete(self, user_id):
+        user = User.get_user_by_id(user_id)
+        if user is None:
+            return {"message": "No user found with UID : {}".format(user_id)}
+        [clip.delete_from_db() for clip in ClipboardModel.get_clips_by_sender_id(user_id).all()]
+        return {"message": "clip data deleted for user {}".format(user_id)}
+        
+        
+class ClipboardSenderNData(Resource):
+    
+    def get(self, user_id, n):
+        user = User.get_user_by_id(user_id)
+        if user is None:
+            return {"message": "No user found with UID : {}".format(user_id)}
+        
+        clips = []
+        return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_sender_id(user_id).limit(n).all()]}, 201
 
+ 
 
 class ClipboardRecieverData(Resource):
     def get(self, user_id):
