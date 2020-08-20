@@ -1,5 +1,6 @@
 from uuid import getnode as get_mac
 from math import floor, ceil
+from models.pc_user import UserModel
 from random import randint
 from flask_restful import Resource, reqparse
 from sqlalchemy.exc import IntegrityError
@@ -47,7 +48,8 @@ class Encrypt(Resource):
             
             userid = unique_str
             limit = len(userid)-2
-            
+            username = data['username']
+
             A = userid[randint(0,limit)]
             B = userid[randint(0,limit)]
             C = userid[randint(0,limit)]
