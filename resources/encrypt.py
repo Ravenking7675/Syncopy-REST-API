@@ -2,6 +2,7 @@ from uuid import getnode as get_mac
 from math import floor, ceil
 from random import randint
 from flask_restful import Resource, reqparse
+from sqlalchemy.exc import IntegrityError
 
 
 _parse = reqparse.RequestParser()
@@ -34,7 +35,13 @@ class Encrypt(Resource):
             F = username[floor(e3/2)]
             
             key = A+C+E+B+D+F
-            return {"UUID": key}
+            
+            try:
+                user = UserModel(username=username, uuid=key, isPc = False)
+                user.save_into_db()
+                return {"UUID": key}
+            except IntegrityError as e:
+                return {"message": "Username already exists"}
         
         else:
             
@@ -49,7 +56,13 @@ class Encrypt(Resource):
             F = userid[randint(0,limit)]
             
             key = A+C+E+B+D+F
-            return {"UUID": key}
+            
+            try:
+                user = UserModel(username=username, uuid=key, isPc = False)
+                user.save_into_db()
+                return {"UUID": key}
+            except IntegrityError as e:
+                return {"message": "Username already exists"}
             
                 
             
