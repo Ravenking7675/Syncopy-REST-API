@@ -67,5 +67,10 @@ class Encrypt(Resource):
                 return {"message": "Username already exists"}
             
                 
-            
-            
+class GetUUID(Resource):
+    def get(self, name):
+        
+        user = UserModel.get_uuid_by_name(name)
+        if user is None:
+            return {"message": "no user exist with Username : {}".format(name)}
+        return {"uuid": user.uuid}       
