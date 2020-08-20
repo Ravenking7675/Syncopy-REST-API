@@ -2,6 +2,8 @@ from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
 
+from resources.encrypt import Encrypt
+
 from resources.clipboard import (Clipboard, 
                                  ClipboardSenderData, 
                                  ClipboardRecieverData, 
@@ -33,6 +35,7 @@ api.add_resource(ClipboardSenderData, "/sent/<int:user_id>")
 api.add_resource(ClipboardSenderNData, "/sent/<int:user_id>/<int:n>")
 api.add_resource(ClipboardRecieverData, "/recieved/<int:user_id>")
 api.add_resource(ClipboardRecieverNData, "/recieved/<int:user_id>/<int:n>")
+api.add_resource(Encrypt, "/generate_key")
 
 @jwt.token_in_blacklist_loader
 def check_if_token_in_blacklist(decrypted_token):
