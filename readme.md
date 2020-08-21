@@ -29,12 +29,44 @@ This API will enable you to sync clipboard content among multiple devices.
 
  [PUT] **/sent/{user_id}/1** : To update {checked = True} int the latest clip data from **{user_id}** (Sorted by [time])
  
- [POST] **/generate_key** : To generate UUID for a user 
+
  
- [POST] **/refresh** : To refresh JWT token
+ ### [POST] **/clip** : To send clipboard data to the API
  
+ #### payload:
+ {
+    "sender": "avinash",
+    "sender_id": 1,
+    "reciever": "raven",
+    "reciever_id": 2,
+    "time": 155,
+    "content": "This is the updated value",
+    "checked": false
+}
+
+ ### [POST] **/generate_key** : To generate UUID for a user 
+
+ #### payload:
+ 
+ {
+    "unique_str": "12312312321312312",
+    "username": "pranav",
+    "isPc": true
+ } 
+ 
+ ### [POST] **/add_connections** : Adds user data in connections table to establish a two way connection
+ #### payload:
+  {
+    "uuid_sender": "11v2rr",
+    "uuid_reciever": "33a3rr"
+  }
+
+	Don't need these endpoints for now
 	
- [POST] **/logout** : To logout the User
+	 
+[POST] **/refresh** : To refresh JWT token
+
+[POST] **/logout** : To logout the User
 	
  ### [POST] **/auth** : To login the User 
  
@@ -52,35 +84,6 @@ This API will enable you to sync clipboard content among multiple devices.
     "username": "pranav",
     "password": "12345"
 }
- 
- ### [POST] **/clip** : To send clipboard data to the API
- 
- #### payload:
- {
-    "sender": "avinash",
-    "sender_id": 1,
-    "reciever": "raven",
-    "reciever_id": 2,
-    "time": 155,
-    "content": "This is the updated value",
-    "checked": false
-}
-
- #### payload:
- 
- {
-    "unique_str": "12312312321312312",
-    "username": "pranav",
-    "isPc": true
- } 
- 
- ### [POST] **/add_connections** : Adds user data in connections table to establish a two way connection
- #### payload:
-  {
-    "uuid_sender": "11v2rr",
-    "uuid_reciever": "33a3rr"
-  }
-
  
  
 ## Database Structure
