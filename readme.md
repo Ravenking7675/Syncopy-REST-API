@@ -84,7 +84,7 @@ This API will enable you to sync clipboard content among multiple devices.
  
  
 ## Database Structure
-	User Table and Clipboard Table have a One-To-Many Relationship
+	Following table are structured in a non relational manner
 
 ### Clipboard Table (clipboard)
 
