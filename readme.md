@@ -20,7 +20,7 @@ This API will enable you to sync clipboard content among multiple devices.
  
  [GET] **/recieved/{user_id}/{n}** : To get **{n}** clip data from **{user_id}** (Reciever Side) 
 
- [GET] **/sent/{user_id}/1** : To get the latest clip data from **{user_id}** (Sorted by [time])
+ [GET] **/recieved/{user_id}/1** : To get the latest clip data from **{user_id}** (Sorted by [time])
    
  [GET] **/connections/{UUID}/** : To get all the available connections for given UUID
  
