@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
 
 from resources.encrypt import Encrypt, GetUUID
+from resources.connection import Connection, FindConnections
 
 from resources.clipboard import (Clipboard, 
                                  ClipboardSenderData, 
@@ -37,6 +38,8 @@ api.add_resource(ClipboardRecieverData, "/recieved/<int:user_id>")
 api.add_resource(ClipboardRecieverNData, "/recieved/<int:user_id>/<int:n>")
 api.add_resource(Encrypt, "/generate_key")
 api.add_resource(GetUUID, "/key/<string:name>")
+api.add_resource(Connection, "/add_connection")
+api.add_resource(FindConnections, "/connections/<string:uuid>")
 
 @jwt.token_in_blacklist_loader
 def check_if_token_in_blacklist(decrypted_token):
