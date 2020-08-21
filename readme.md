@@ -9,15 +9,6 @@ This API will enable you to sync clipboard content among multiple devices.
 
 ## End Points
 
- [POST] **/auth** : To login the User 
- 
- [POST] **/refresh** : To refresh JWT token
-	
- [POST] **/logout** : To logout the User
-	
- [POST] **/register**  : To register a new User
- 
- [POST] **/clip** : To send clipboard data to the API
 		
  [GET] **/sent/{user_id}/** : To get all the clip data from **{user_id}** (Sender Side)
 
@@ -30,10 +21,51 @@ This API will enable you to sync clipboard content among multiple devices.
  [GET] **/recieved/{user_id}/{n}** : To get **{n}** clip data from **{user_id}** (Reciever Side) 
 
  [GET] **/sent/{user_id}/1** : To get the latest clip data from **{user_id}** (Sorted by [time])
+   
+ [GET] **/connections/{UUID}/** : To get all the available connections for given UUID
+ 
+ [GET] **/key/{username}/** : To get UUID for given username
+
 
  [PUT] **/sent/{user_id}/1** : To update {checked = True} int the latest clip data from **{user_id}** (Sorted by [time])
  
  [POST] **/generate_key** : To generate UUID for a user 
+ 
+ [POST] **/refresh** : To refresh JWT token
+ 
+	
+ [POST] **/logout** : To logout the User
+	
+ ### [POST] **/auth** : To login the User 
+ 
+ #### payload:
+ 
+ {
+    "username": "avinash",
+    "password": "12345"
+ }
+
+ ### [POST] **/register**  : To register a new User
+ 
+ #### payload:
+ {
+    "username": "pranav",
+    "password": "12345"
+}
+ 
+ [POST] **/clip** : To send clipboard data to the API
+ 
+ #### payload:
+ {
+    "sender": "avinash",
+    "sender_id": 1,
+    "reciever": "raven",
+    "reciever_id": 2,
+    "time": 155,
+    "content": "This is the updated value",
+    "checked": false
+}
+
  #### payload:
  
  {
@@ -48,10 +80,6 @@ This API will enable you to sync clipboard content among multiple devices.
     "uuid_sender": "11v2rr",
     "uuid_reciever": "33a3rr"
   }
-  
- [GET] **/connections/{UUID}/** : To get all the available connections for given UUID
- 
- [GET] **/key/{username}/** : To get UUID for given username
 
  
  
