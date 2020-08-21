@@ -53,7 +53,7 @@ This API will enable you to sync clipboard content among multiple devices.
     "password": "12345"
 }
  
- [POST] **/clip** : To send clipboard data to the API
+ ### [POST] **/clip** : To send clipboard data to the API
  
  #### payload:
  {
@@ -74,7 +74,7 @@ This API will enable you to sync clipboard content among multiple devices.
     "isPc": true
  } 
  
- [POST] **/add_connections** : Adds user data in connections table to establish a two way connection
+ ### [POST] **/add_connections** : Adds user data in connections table to establish a two way connection
  #### payload:
   {
     "uuid_sender": "11v2rr",
