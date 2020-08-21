@@ -27,7 +27,7 @@ This API will enable you to sync clipboard content among multiple devices.
  [GET] **/key/{username}/** : To get UUID for given username
 
 
- [PUT] **/sent/{user_id}/1** : To update {checked = True} int the latest clip data from **{user_id}** (Sorted by [time])
+ [PUT] **/recieved/{user_id}/1** : To update {checked = True} int the latest clip data from **{user_id}** (Sorted by [time])
  
 
  
