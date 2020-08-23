@@ -1,4 +1,5 @@
 from flask_restful import Resource, reqparse
+from models.pc_user import UserModel
 from models.user import User, ClipboardModel
 from flask_jwt_extended import (
                                 create_access_token,
@@ -14,7 +15,7 @@ _parse.add_argument('sender_id', type=str, required=True, help="Sender ID requir
 _parse.add_argument('sender', type=str, required=True, help="Sender NAME required")
 _parse.add_argument('reciever_id', type=str, required=True, help="Reciever ID required")
 _parse.add_argument('reciever', type=str, required=True, help="Reciever NAME required")
-_parse.add_argument('time', type=str, required=True, help="Please provide the time of commit")
+_parse.add_argument('time', type=int, required=True, help="Please provide the time of commit")
 _parse.add_argument('content', type=str, required=True, help="Content value can not be empty")
 _parse.add_argument('content', type=str, required=True, help="Content value can not be empty")
 _parse.add_argument('checked', type=bool, required=True, help="Is the clip CHECKED?")
@@ -33,32 +34,36 @@ class Clipboard(Resource):
         
         
 class ClipboardSenderData(Resource):
-    def get(self, user_id):
+    def get(self, user_uuid):
         
-        user = User.get_user_by_id(user_id)
+        user = UserModel.get_user_by_uuid(user_uuid)
         if user is None:
             return {"clips": [], "response": 404}
             # return {"message": "No user found with UID : {}".format(user_id)}, 404
         
         clips = []
+        user_id = UserModel.get_id_by_uuid(user_uuid)
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_sender_id(user_id).all()], "response": 201}, 201
     
-    def delete(self, user_id):
-        user = User.get_user_by_id(user_id)
+    def delete(self, user_uuid):
+        user = UserModel.get_user_by_uuid(user_uuid)
         if user is None:
             return {"clips": [], "response": 404}
+        
+        user_id = UserModel.get_id_by_uuid(user_uuid)
         [clip.delete_from_db() for clip in ClipboardModel.get_clips_by_sender_id(user_id).all()]
-        return {"message": "clip data deleted for user {}".format(user_id), "response": 201}, 201
+        return {"message": "clip data deleted for user {}".format(user_uuid), "response": 201}, 201
         
         
 class ClipboardSenderNData(Resource):
     
-    def get(self, user_id, n):
-        user = User.get_user_by_id(user_id)
+    def get(self, user_uuid, n):
+        user = UserModel.get_user_by_uuid(user_uuid)
         if user is None:
             # return {"message": "No user found with UID : {}".format(user_id)}, 404
             return {"clips": [], "response": 404}
 
+        user_id = UserModel.get_id_by_uuid(user_uuid)
         
         clips = []
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_sender_id(user_id).limit(n).all()], "response": 201}, 201
@@ -67,33 +72,36 @@ class ClipboardSenderNData(Resource):
 
 class ClipboardRecieverData(Resource):
     
-    def get(self, user_id):
+    def get(self, user_uuid):
         
-        user = User.get_user_by_id(user_id)
+        user = UserModel.get_user_by_uuid(user_uuid)
         if user is None:
             # return {"message": "No user found with UID : {}".format(user_id)}, 404
             return {"clips": [], "response": 404}
 
-
+        user_id = UserModel.get_id_by_uuid(user_uuid)
+        
         clips = []
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_reciever_id(user_id).all()], "response": 201}, 201
         
 class ClipboardRecieverNData(Resource):
     
-    def get(self, user_id, n):
+    def get(self, user_uuid, n):
         
-        user = User.get_user_by_id(user_id)
+        user = UserModel.get_user_by_uuid(user_uuid)
         if user is None:
             # return {"message": "No user found with UID : {}".format(user_id)}, 404
             return {"clips": [], "response": 404}
-
+        
+        user_id = UserModel.get_id_by_uuid(user_uuid)
+        
         clips = []
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_reciever_id(user_id).limit(n).all()], "response": 201}, 201
     
     
-    def put(self, user_id, n):
+    def put(self, user_uuid, n):
         
-        user = User.get_user_by_id(user_id)
+        user = UserModel.get_user_by_uuid(user_uuid)
         if user is None:
             # return {"message": "No user found with UID : {}".format(user_id)}, 404
             return {"clip": {}, "response": 404}
@@ -104,6 +112,8 @@ class ClipboardRecieverNData(Resource):
 
         else:
             
+            user_id = UserModel.get_id_by_uuid(user_uuid)
+        
             clip = ClipboardModel.get_clips_by_reciever_id(user_id).first()
            
             clip.update_db()

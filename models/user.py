@@ -8,9 +8,9 @@ class ClipboardModel(db.Model):
     
     id = db.Column(db.Integer,primary_key=True)
     sender = db.Column(db.String(80))
-    sender_id = db.Column(db.Integer)
+    sender_id = db.Column(db.String)
     reciever = db.Column(db.String(80))
-    reciever_id = db.Column(db.Integer)    
+    reciever_id = db.Column(db.String)    
     time = db.Column(db.Integer)
     content = db.Column(db.UnicodeText)
     checked = db.Column(db.Boolean, default=False)

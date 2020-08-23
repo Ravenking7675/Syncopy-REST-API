@@ -19,6 +19,10 @@ class UserModel(db.Model):
         db.session.commit()    
         
     @classmethod
+    def get_user_by_uuid(cls, uuid_):
+        return cls.query.filter_by(uuid=uuid_).first()
+    
+    @classmethod
     def get_user_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()    
     
