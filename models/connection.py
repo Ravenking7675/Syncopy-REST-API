@@ -16,7 +16,7 @@ class ConnectionModel(db.Model):
     
     @classmethod
     def get_connections_by_id(cls, _id):
-        return cls.query.filter_by(id_sender=_id).all()
+        return cls.query.filter_by(id_sender=_id)
     
     def save_to_database(self):
         db.session.add(self)
