@@ -11,7 +11,7 @@ class ClipboardModel(db.Model):
     sender_id = db.Column(db.String)
     reciever = db.Column(db.String(80))
     reciever_id = db.Column(db.String)    
-    time = db.Column(db.Integer)
+    time = db.Column(db.long)
     content = db.Column(db.UnicodeText)
     checked = db.Column(db.Boolean, default=False)
     user_id = db.Column('user_id', db.ForeignKey("user.id"))
