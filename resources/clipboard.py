@@ -42,7 +42,7 @@ class ClipboardSenderData(Resource):
             # return {"message": "No user found with UID : {}".format(user_id)}, 404
         
         clips = []
-        user_id = UserModel.get_id_by_uuid(user_uuid).uuid
+        user_id = user_uuid
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_sender_id(user_id).all()], "response": 201}, 201
     
     def delete(self, user_uuid):
@@ -50,7 +50,7 @@ class ClipboardSenderData(Resource):
         if user is None:
             return {"clips": [], "response": 404}
         
-        user_id = UserModel.get_id_by_uuid(user_uuid).uuid
+        user_id = user_uuid
         [clip.delete_from_db() for clip in ClipboardModel.get_clips_by_sender_id(user_id).all()]
         return {"message": "clip data deleted for user {}".format(user_uuid), "response": 201}, 201
         
@@ -63,7 +63,7 @@ class ClipboardSenderNData(Resource):
             # return {"message": "No user found with UID : {}".format(user_id)}, 404
             return {"clips": [], "response": 404}
 
-        user_id = UserModel.get_id_by_uuid(user_uuid).uuid
+        user_id = user_uuid
         
         clips = []
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_sender_id(user_id).limit(n).all()], "response": 201}, 201
@@ -79,7 +79,7 @@ class ClipboardRecieverData(Resource):
             # return {"message": "No user found with UID : {}".format(user_id)}, 404
             return {"clips": [], "response": 404}
 
-        user_id = UserModel.get_id_by_uuid(user_uuid).uuid
+        user_id = user_uuid
         
         clips = []
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_reciever_id(user_id).all()], "response": 201}, 201
@@ -93,7 +93,7 @@ class ClipboardRecieverNData(Resource):
             # return {"message": "No user found with UID : {}".format(user_id)}, 404
             return {"clips": [], "response": 404}
         
-        user_id = UserModel.get_id_by_uuid(user_uuid).uuid
+        user_id = user_uuid
         
         clips = []
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_reciever_id(user_id).limit(n).all()], "response": 201}, 201
@@ -112,7 +112,7 @@ class ClipboardRecieverNData(Resource):
 
         else:
             
-            user_id = UserModel.get_id_by_uuid(user_uuid).uuid
+            user_id = user_uuid
         
             clip = ClipboardModel.get_clips_by_reciever_id(user_id).first()
            
