@@ -28,7 +28,7 @@ class Connection(Resource):
         if id_sender is None or id_reciever is None:
             return {"message": "Check the UUIDs once again", "response": 400}, 400
         
-        sender = ConnectionModel.get_id_by_uuid(data['uuid_sender'])
+        sender = ConnectionModel.get_connections_by_id(id_sender)
         
         reciever_id = sender.id_reciever
         
