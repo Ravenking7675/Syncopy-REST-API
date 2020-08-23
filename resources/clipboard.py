@@ -15,7 +15,7 @@ _parse.add_argument('sender_id', type=str, required=True, help="Sender ID requir
 _parse.add_argument('sender', type=str, required=True, help="Sender NAME required")
 _parse.add_argument('reciever_id', type=str, required=True, help="Reciever ID required")
 _parse.add_argument('reciever', type=str, required=True, help="Reciever NAME required")
-_parse.add_argument('time', type=int, required=True, help="Please provide the time of commit")
+_parse.add_argument('time', type=long , required=True, help="Please provide the time of commit")
 _parse.add_argument('content', type=str, required=True, help="Content value can not be empty")
 _parse.add_argument('content', type=str, required=True, help="Content value can not be empty")
 _parse.add_argument('checked', type=bool, required=True, help="Is the clip CHECKED?")
