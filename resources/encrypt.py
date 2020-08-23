@@ -42,7 +42,7 @@ class Encrypt(Resource):
                 user.save_into_db()
                 return {"UUID": key, "response": 201}, 201
             except IntegrityError as e:
-                return {"UUID": "", "response": 400}, 400
+                return {"UUID": "", "response": 400}, 201
         
         else:
             
@@ -65,7 +65,7 @@ class Encrypt(Resource):
                 return {"UUID": key, "response": 201}, 201
             except IntegrityError as e:
                 # return {"message": "Username already exists"}, 400
-                return {"UUID": "", "response": 400}, 400
+                return {"UUID": "", "response": 400}, 201
             
             
                 
@@ -74,5 +74,5 @@ class GetUUID(Resource):
         
         user = UserModel.get_uuid_by_name(name)
         if user is None:
-            return {"UUID": "", "response": 404}, 404
+            return {"UUID": "", "response": 404}, 201
         return {"UUID": user.uuid, "response": 201}, 201

@@ -38,7 +38,7 @@ class ClipboardSenderData(Resource):
         
         user = UserModel.get_user_by_uuid(user_uuid)
         if user is None:
-            return {"clips": [], "response": 404}
+            return {"clips": [], "response": 404}, 201
             # return {"message": "No user found with UID : {}".format(user_id)}, 404
         
         clips = []
@@ -48,7 +48,7 @@ class ClipboardSenderData(Resource):
     def delete(self, user_uuid):
         user = UserModel.get_user_by_uuid(user_uuid)
         if user is None:
-            return {"clips": [], "response": 404}
+            return {"clips": [], "response": 404}, 201
         
         user_id = user_uuid
         [clip.delete_from_db() for clip in ClipboardModel.get_clips_by_sender_id(user_id).all()]
@@ -61,7 +61,7 @@ class ClipboardSenderNData(Resource):
         user = UserModel.get_user_by_uuid(user_uuid)
         if user is None:
             # return {"message": "No user found with UID : {}".format(user_id)}, 404
-            return {"clips": [], "response": 404}
+            return {"clips": [], "response": 404}, 201
 
         user_id = user_uuid
         
@@ -77,7 +77,7 @@ class ClipboardRecieverData(Resource):
         user = UserModel.get_user_by_uuid(user_uuid)
         if user is None:
             # return {"message": "No user found with UID : {}".format(user_id)}, 404
-            return {"clips": [], "response": 404}
+            return {"clips": [], "response": 404}, 201
 
         user_id = user_uuid
         
@@ -91,7 +91,7 @@ class ClipboardRecieverNData(Resource):
         user = UserModel.get_user_by_uuid(user_uuid)
         if user is None:
             # return {"message": "No user found with UID : {}".format(user_id)}, 404
-            return {"clips": [], "response": 404}
+            return {"clips": [], "response": 404}, 201
         
         user_id = user_uuid
         
@@ -104,11 +104,11 @@ class ClipboardRecieverNData(Resource):
         user = UserModel.get_user_by_uuid(user_uuid)
         if user is None:
             # return {"message": "No user found with UID : {}".format(user_id)}, 404
-            return {"clip": {}, "response": 404}
+            return {"clip": {}, "response": 404}, 201
 
         elif n is not 1:
             # return {"message": "Post can not be applied on bulk query"}, 400
-            return {"clip": {}, "response": 400}
+            return {"clip": {}, "response": 400}, 201
 
         else:
             
