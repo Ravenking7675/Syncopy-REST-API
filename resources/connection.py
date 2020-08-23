@@ -19,14 +19,21 @@ class Connection(Resource):
     def post(self):
         data = _parse.parse_args()
         
-        id_sender = ConnectionModel.get_id_by_uuid(data['uuid_sender']).id
-        id_reciever = ConnectionModel.get_id_by_uuid(data['uuid_reciever']).id
+        id_sender = UserModel.get_id_by_uuid(data['uuid_sender']).id
+        id_reciever = UserModel.get_id_by_uuid(data['uuid_reciever']).id
         
         if id_sender == id_reciever:
             return {"message": "UUIDs can not be same", "response": 400}, 400
         
         if id_sender is None or id_reciever is None:
             return {"message": "Check the UUIDs once again", "response": 400}, 400
+        
+        sender = ConnectionModel.get_id_by_uuid(data['uuid_sender'])
+        
+        reciever_id = sender.id_reciever
+        
+        if id_reciever == reciever_id:
+            return {"message": "Connection already present", "response": 400}, 400
         
         connection = ConnectionModel(id_sender=id_sender, id_reciever=id_reciever)
         connection.save_to_database()
