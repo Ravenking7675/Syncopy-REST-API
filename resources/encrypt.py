@@ -40,9 +40,9 @@ class Encrypt(Resource):
             try:
                 user = UserModel(username=username, uuid=key, isPc = False)
                 user.save_into_db()
-                return {"UUID": key}, 201
+                return {"UUID": key, "response": 201}, 201
             except IntegrityError as e:
-                return {"message": "Username already exists"}, 400
+                return {"UUID": "", "response": 400}, 400
         
         else:
             
@@ -62,9 +62,11 @@ class Encrypt(Resource):
             try:
                 user = UserModel(username=username, uuid=key, isPc = False)
                 user.save_into_db()
-                return {"UUID": key}, 201
+                return {"UUID": key, "response": 201}, 201
             except IntegrityError as e:
-                return {"message": "Username already exists"}, 400
+                # return {"message": "Username already exists"}, 400
+                return {"UUID": "", "response": 400}, 400
+            
             
                 
 class GetUUID(Resource):
@@ -72,5 +74,5 @@ class GetUUID(Resource):
         
         user = UserModel.get_uuid_by_name(name)
         if user is None:
-            return {"message": "no user exist with Username : {}".format(name)}, 404
-        return {"uuid": user.uuid}, 201
+            return {"UUID": "", "response": 404}, 404
+        return {"UUID": user.uuid, "response": 201}, 201

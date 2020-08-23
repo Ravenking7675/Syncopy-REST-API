@@ -29,7 +29,7 @@ class Clipboard(Resource):
         clip = ClipboardModel(**data, creator=user)
         clip.save_into_db()
         
-        return {"message": "Clipboard added successfully"}, 201
+        return {"message": "Clipboard added successfully", "response": 201}, 201
         
         
 class ClipboardSenderData(Resource):
