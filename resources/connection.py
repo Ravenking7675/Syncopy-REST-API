@@ -23,10 +23,10 @@ class Connection(Resource):
         id_reciever = UserModel.get_id_by_uuid(data['uuid_reciever']).id
         
         if id_sender == id_reciever:
-            return {"message": "UUIDs can not be same", "response": 400}, 400
+            return {"message": "UUIDs can not be same", "response": 400}, 201
         
         if id_sender is None or id_reciever is None:
-            return {"message": "Check the UUIDs once again", "response": 400}, 400
+            return {"message": "Check the UUIDs once again", "response": 400}, 201
         
         sender = ConnectionModel.get_connections_by_id(id_sender).all()
         
@@ -34,7 +34,7 @@ class Connection(Resource):
             
             for conn in sender:
                 if id_reciever == conn.id_reciever:
-                    return {"message": "Connection already present", "response": 400}, 400
+                    return {"message": "Connection already present", "response": 400}, 201
                 
             # reciever_id = sender.id_reciever
         
@@ -56,7 +56,7 @@ class FindConnections(Resource):
         
         uid = ConnectionModel.get_id_by_uuid(uuid)
         if uid is None:
-            return {"connections": [], "response": 404}, 404
+            return {"connections": [], "response": 404}, 201
         
         users = ConnectionModel.get_connections_by_id(uid.id).all()
         connections = []
