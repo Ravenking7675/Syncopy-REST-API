@@ -21,9 +21,7 @@ _parse.add_argument('checked', type=bool, required=True, help="Is the clip CHECK
 
 class Clipboard(Resource):
     def post(self):
-        
-        print("Hey i am the sender")
-    
+            
         data = _parse.parse_args()
         
         user = User.get_user_by_name(data['sender'])
@@ -39,7 +37,7 @@ class ClipboardSenderData(Resource):
         
         user = User.get_user_by_id(user_id)
         if user is None:
-            return {"message": "No user found with UID : {}".format(user_id)}
+            return {"message": "No user found with UID : {}".format(user_id)}, 404
         
         clips = []
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_sender_id(user_id).all()]}, 201
@@ -47,9 +45,9 @@ class ClipboardSenderData(Resource):
     def delete(self, user_id):
         user = User.get_user_by_id(user_id)
         if user is None:
-            return {"message": "No user found with UID : {}".format(user_id)}
+            return {"message": "No user found with UID : {}".format(user_id)}, 404
         [clip.delete_from_db() for clip in ClipboardModel.get_clips_by_sender_id(user_id).all()]
-        return {"message": "clip data deleted for user {}".format(user_id)}
+        return {"message": "clip data deleted for user {}".format(user_id)}, 201
         
         
 class ClipboardSenderNData(Resource):
@@ -57,7 +55,7 @@ class ClipboardSenderNData(Resource):
     def get(self, user_id, n):
         user = User.get_user_by_id(user_id)
         if user is None:
-            return {"message": "No user found with UID : {}".format(user_id)}
+            return {"message": "No user found with UID : {}".format(user_id)}, 404
         
         clips = []
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_sender_id(user_id).limit(n).all()]}, 201
@@ -70,7 +68,7 @@ class ClipboardRecieverData(Resource):
         
         user = User.get_user_by_id(user_id)
         if user is None:
-            return {"message": "No user found with UID : {}".format(user_id)}
+            return {"message": "No user found with UID : {}".format(user_id)}, 404
 
         clips = []
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_reciever_id(user_id).all()]}, 201
@@ -81,7 +79,7 @@ class ClipboardRecieverNData(Resource):
         
         user = User.get_user_by_id(user_id)
         if user is None:
-            return {"message": "No user found with UID : {}".format(user_id)}
+            return {"message": "No user found with UID : {}".format(user_id)}, 404
         clips = []
         return {"clips": [clip.json() for clip in ClipboardModel.get_clips_by_reciever_id(user_id).limit(n).all()]}, 201
     
@@ -90,15 +88,15 @@ class ClipboardRecieverNData(Resource):
         
         user = User.get_user_by_id(user_id)
         if user is None:
-            return {"message": "No user found with UID : {}".format(user_id)}
+            return {"message": "No user found with UID : {}".format(user_id)}, 404
         elif n is not 1:
-            return {"message": "Post can not be applied on bulk query"}
+            return {"message": "Post can not be applied on bulk query"}, 400
         else:
             
             clip = ClipboardModel.get_clips_by_reciever_id(user_id).first()
            
             clip.update_db()
-            return {"clip": clip.json()}
+            return {"clip": clip.json()}, 201
         
         
 

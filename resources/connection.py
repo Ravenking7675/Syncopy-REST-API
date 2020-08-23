@@ -23,10 +23,10 @@ class Connection(Resource):
         id_reciever = ConnectionModel.get_id_by_uuid(data['uuid_reciever']).id
         
         if id_sender == id_reciever:
-            return {"message": "UUIDs can not be same"}
+            return {"message": "UUIDs can not be same"}, 400
         
         if id_sender is None or id_reciever is None:
-            return {"message": "Check the UUIDs once again"}
+            return {"message": "Check the UUIDs once again"}, 400
         
         connection = ConnectionModel(id_sender=id_sender, id_reciever=id_reciever)
         connection.save_to_database()
@@ -34,7 +34,7 @@ class Connection(Resource):
         connection = ConnectionModel(id_sender=id_reciever, id_reciever=id_sender)
         connection.save_to_database()
         
-        return{"message": "connection established"}
+        return{"message": "connection established"}, 201
 
 
 class FindConnections(Resource):
@@ -42,12 +42,9 @@ class FindConnections(Resource):
         
         uid = ConnectionModel.get_id_by_uuid(uuid)
         if uid is None:
-            return {"message": "No UUID : {} exists".format(uuid)}
-
-        print(uid.id)
-
+            return {"message": "No UUID : {} exists".format(uuid)}, 404
+        
         users = ConnectionModel.get_connections_by_id(uid.id)
-        print("Hey this is the user {}".format(users))
         connections = []
         
         for user in users:
@@ -55,4 +52,4 @@ class FindConnections(Resource):
             print(id)
             connections.append(UserModel.get_user_by_id(id).json())
         
-        return {"connections": connections}
+        return {"connections": connections}, 201
