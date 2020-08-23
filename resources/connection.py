@@ -30,11 +30,13 @@ class Connection(Resource):
         
         sender = ConnectionModel.get_connections_by_id(id_sender).first()
         
-        reciever_id = sender.id_reciever
+        if sender:
+            reciever_id = sender.id_reciever
         
-        if id_reciever == reciever_id:
-            return {"message": "Connection already present", "response": 400, "id sender": id_sender, "id reciever": reciever_id}, 400
+            if id_reciever == reciever_id:
+                return {"message": "Connection already present", "response": 400}, 400
         
+        # return {"id sender": id_sender, "id reciever": id_reciever, "reciever_id ": reciever_id}
         connection = ConnectionModel(id_sender=id_sender, id_reciever=id_reciever)
         connection.save_to_database()
         
